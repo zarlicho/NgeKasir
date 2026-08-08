@@ -1,10 +1,16 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const data = await request.json();
+
+    // Jika action=delete, lakukan penghapusan
+    if (data._action === 'delete') {
+      await prisma.product.delete({ where: { id } });
+      return NextResponse.json({ success: true });
+    }
     
     let categoryId = undefined;
     if (data.category) {
@@ -38,12 +44,15 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   }
 }
 
+// Tetap simpan PUT dan DELETE agar kompatibel di environment lain
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  return POST(request, { params });
+}
+
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
-    await prisma.product.delete({
-      where: { id },
-    });
+    await prisma.product.delete({ where: { id } });
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to delete product' }, { status: 500 });

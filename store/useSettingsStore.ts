@@ -40,7 +40,7 @@ export const useSettingsStore = create<SettingsStore>((set) => ({
     set({ storeName: name });
     try {
       await fetch('/api/settings', {
-        method: 'PUT',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name }),
       });
@@ -52,7 +52,7 @@ export const useSettingsStore = create<SettingsStore>((set) => ({
     set({ taxPercentage });
     try {
       await fetch('/api/settings', {
-        method: 'PUT',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ taxPercentage }),
       });
@@ -64,7 +64,7 @@ export const useSettingsStore = create<SettingsStore>((set) => ({
     set({ baseQris });
     try {
       await fetch('/api/settings', {
-        method: 'PUT',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ baseQris }),
       });

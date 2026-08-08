@@ -54,7 +54,7 @@ export const useProductStore = create<ProductStore>((set) => ({
   updateProduct: async (id, updatedFields) => {
     try {
       const res = await fetch(`/api/products/${id}`, {
-        method: 'PUT',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedFields),
       });
@@ -70,7 +70,11 @@ export const useProductStore = create<ProductStore>((set) => ({
   },
   deleteProduct: async (id) => {
     try {
-      const res = await fetch(`/api/products/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/products/${id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ _action: 'delete' }),
+      });
       if (res.ok) {
         set((state) => ({
           products: state.products.filter((p) => p.id !== id),
