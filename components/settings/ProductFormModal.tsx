@@ -15,6 +15,7 @@ interface ProductFormModalProps {
 
 export function ProductFormModal({ mode, product, isOpen: controlledIsOpen, onClose }: ProductFormModalProps) {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { addProduct, updateProduct } = useProductStore();
 
   const isControlled = controlledIsOpen !== undefined;
@@ -50,30 +51,35 @@ export function ProductFormModal({ mode, product, isOpen: controlledIsOpen, onCl
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (mode === "add") {
-      const finalImage = formData.image || '/bibimbap.png';
-
-      addProduct({
-        name: formData.name,
-        price: parseInt(formData.price),
-        stock: parseInt(formData.stock),
-        category: formData.category,
-        image: finalImage
-      });
-    } else if (mode === "edit" && product) {
-      const finalImage = formData.image || '/bibimbap.png';
-      
-      updateProduct(product.id, {
-        name: formData.name,
-        price: parseInt(formData.price),
-        stock: parseInt(formData.stock),
-        category: formData.category,
-        image: finalImage
-      });
+    setIsSubmitting(true);
+    try {
+      if (mode === "add") {
+        const finalImage = formData.image || '/bibimbap.png';
+        await addProduct({
+          name: formData.name,
+          price: parseInt(formData.price),
+          stock: parseInt(formData.stock),
+          category: formData.category,
+          image: finalImage
+        });
+      } else if (mode === "edit" && product) {
+        const finalImage = formData.image || '/bibimbap.png';
+        await updateProduct(product.id, {
+          name: formData.name,
+          price: parseInt(formData.price),
+          stock: parseInt(formData.stock),
+          category: formData.category,
+          image: finalImage
+        });
+      }
+      handleClose();
+    } catch (error) {
+      console.error("Failed to submit product form:", error);
+    } finally {
+      setIsSubmitting(false);
     }
-    handleClose();
   };
 
   return (
@@ -191,9 +197,10 @@ export function ProductFormModal({ mode, product, isOpen: controlledIsOpen, onCl
                 </button>
                 <button 
                   type="submit" 
-                  className="w-full sm:flex-1 py-2.5 md:py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-200 transition text-sm md:text-base"
+                  disabled={isSubmitting}
+                  className="w-full sm:flex-1 py-2.5 md:py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-200 transition text-sm md:text-base disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Simpan Menu
+                  {isSubmitting ? 'Menyimpan...' : 'Simpan Menu'}
                 </button>
               </div>
             </form>
