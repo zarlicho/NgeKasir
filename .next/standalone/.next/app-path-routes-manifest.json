@@ -1,0 +1,15 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/categories/route": "/api/categories",
+  "/api/dashboard/route": "/api/dashboard",
+  "/api/products/[id]/route": "/api/products/[id]",
+  "/api/products/route": "/api/products",
+  "/api/settings/route": "/api/settings",
+  "/api/transactions/route": "/api/transactions",
+  "/cashier/page": "/cashier",
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/",
+  "/profile/page": "/profile",
+  "/settings/page": "/settings"
+}
