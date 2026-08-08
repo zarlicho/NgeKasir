@@ -96,7 +96,7 @@ export function BusyTimeChart() {
                     cursor={{ fill: 'transparent' }}
                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', fontSize: '12px', fontWeight: 'bold' }}
                     wrapperStyle={{ zIndex: 100 }}
-                    formatter={(value: number) => [`${value} pesanan`, 'Total']}
+                    formatter={(value: any) => [`${value} pesanan`, 'Total']}
                     labelFormatter={(label) => `Jam ${label}:00`}
                   />
                   <Bar style={{ outline: 'none' }} dataKey="orders" radius={[4, 4, 4, 4]}>
@@ -134,6 +134,7 @@ export function BusyTimeChart() {
                       data={sessionData} cx="50%" cy="50%"
                       innerRadius={70} outerRadius={90}
                       paddingAngle={3} dataKey="value" stroke="none"
+                      // @ts-expect-error activeIndex missing in recharts PieProps
                       activeIndex={activePieIndex} activeShape={renderActiveShape}
                       onMouseEnter={onPieInteraction} onMouseLeave={onPieLeave} onClick={onPieInteraction}
                     >
@@ -149,7 +150,7 @@ export function BusyTimeChart() {
                     <Tooltip 
                       contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                       wrapperStyle={{ zIndex: 100 }}
-                      formatter={(value: number, name: string, props: any) => [`${value}% (${props.payload.trx} trx)`, name]}
+                      formatter={(value: any, name: any, props: any) => [`${value}% (${props.payload.trx} trx)`, name]}
                     />
                   </PieChart>
                 </ResponsiveContainer>

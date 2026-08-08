@@ -7,12 +7,20 @@ import { UploadCloud, CheckCircle2, AlertCircle, Trash2, Info } from "lucide-rea
 import { parseQRIS, QRISData } from "@/lib/qris-lib";
 
 export function GeneralSettings() {
-  const { taxPercentage, setTaxPercentage, baseQris, setBaseQris } = useSettingsStore();
+  const { taxPercentage, setTaxPercentage, baseQris, setBaseQris, fetchSettings } = useSettingsStore();
   const [taxInput, setTaxInput] = useState(taxPercentage.toString());
   const [uploadStatus, setUploadStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [qrisDetails, setQrisDetails] = useState<QRISData | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    fetchSettings();
+  }, [fetchSettings]);
+
+  useEffect(() => {
+    setTaxInput(taxPercentage.toString());
+  }, [taxPercentage]);
 
   useEffect(() => {
     if (baseQris) {

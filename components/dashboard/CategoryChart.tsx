@@ -47,7 +47,7 @@ export function CategoryChart() {
               <Tooltip
                 contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 wrapperStyle={{ zIndex: 100 }}
-                formatter={(value: number) => [`${value}%`, 'Persentase']}
+                formatter={(value: any) => [`${value}%`, 'Persentase']}
               />
               <Legend iconType="circle" wrapperStyle={{ fontSize: '12px', color: '#64748b' }} />
             </PieChart>
