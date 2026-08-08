@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Store {
+  id             Int      @id @default(1)
+  name           String   @default("Toko Saya")
+  pin            String   @default("123456")
+  baseQris       String?  @db.Text
+  taxPercentage  Float    @default(11)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String
+  color     String    @default("bg-slate-500")
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Product {
+  id              String    @id @default(cuid())
+  name            String
+  price           Float
+  stock           Int       @default(0)
+  image           String    @default("https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=200")
+  categoryId      String
+  category        Category  @relation(fields: [categoryId], references: [id])
+  transactionItems TransactionItem[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Transaction {
+  id            String    @id @default(cuid())
+  totalAmount   Float
+  paymentMethod String    @default("Tunai")
+  items         TransactionItem[]
+  createdAt     DateTime  @default(now())
+}
+
+model TransactionItem {
+  id            String    @id @default(cuid())
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  productId     String
+  product       Product     @relation(fields: [productId], references: [id])
+  quantity      Int
+  priceAtTime   Float
+}
