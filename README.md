@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 Ngekasir
 
-## Getting Started
+Ngekasir adalah aplikasi Point of Sales (POS) atau Kasir modern berbasis web yang dirancang khusus untuk memudahkan UMKM, kedai kopi, dan warung dalam mengelola transaksi harian. Dibangun menggunakan teknologi web terkini, Ngekasir menawarkan antarmuka yang cepat, responsif, dan intuitif.
 
-First, run the development server:
+![Ngekasir Preview](https://img.shields.io/badge/Status-Active_Development-success)
+![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?logo=typescript)
+![Prisma](https://img.shields.io/badge/Prisma-ORM-1B222D?logo=prisma)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)
 
+## ✨ Fitur Utama
+
+- **📦 Manajemen Kasir & Keranjang:** Sistem kasir yang sangat responsif untuk mencatat pesanan, menghitung subtotal, dan pajak secara otomatis.
+- **💳 Pembayaran Fleksibel (QRIS Dinamis & Tunai):** 
+  - **QRIS Dinamis:** Sistem secara otomatis menghasilkan QRIS baru dengan nominal yang sudah diinjeksi. Pelanggan cukup *scan* tanpa perlu repot mengetik nominal.
+  - **Tunai:** Kalkulator otomatis untuk menghitung uang kembalian pelanggan.
+- **📊 Dashboard Analitik:** 
+  - Pantau pendapatan harian, pesanan selesai, dan pertumbuhan bisnis langsung dari *dashboard*.
+  - **Chart Waktu Sibuk (Busy Time):** Analisis jam-jam paling sibuk di toko Anda.
+  - **Leaderboard Menu:** Ketahui produk mana yang paling laris dan disukai pelanggan.
+- **⚙️ Pengaturan Toko & Keamanan:** Atur nama toko, persentase pajak, kode QRIS Statis, dan lindungi akses aplikasi menggunakan PIN 6 digit.
+- **📱 Responsif:** Desain UI/UX yang optimal dan cantik baik saat dibuka di PC, tablet, maupun layar _smartphone_.
+
+## 🛠️ Teknologi yang Digunakan
+
+Aplikasi ini dikembangkan menggunakan *stack* modern:
+- **Framework:** [Next.js](https://nextjs.org/) (App Router)
+- **Bahasa:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Database:** MySQL
+- **ORM:** [Prisma](https://www.prisma.io/)
+- **State Management:** [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction)
+- **Icons:** [Lucide React](https://lucide.dev/)
+
+## 🚀 Cara Menjalankan di Lokal
+
+Ikuti langkah-langkah berikut untuk menjalankan Ngekasir di mesin lokal Anda:
+
+### 1. Kebutuhan Sistem
+Pastikan Anda sudah menginstal:
+- [Node.js](https://nodejs.org/en/) (Disarankan versi LTS terbaru)
+- MySQL Server (XAMPP, Laragon, atau native)
+
+### 2. Instalasi Dependensi
+Clone *repository* ini (jika dari Git) atau buka foldernya di terminal, lalu jalankan:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Konfigurasi Environment (Database)
+Buat file `.env` di *root folder* proyek Anda dan sesuaikan koneksi database MySQL Anda. Contoh:
+```env
+# Sesuaikan username, password, dan nama database Anda (contoh: ngekasir_db)
+DATABASE_URL="mysql://root:@localhost:3306/ngekasir_db"
+NEXT_PUBLIC_LOGIN_PIN="123456" # PIN default awal jika belum disetting di database
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Setup Database (Prisma)
+Jalankan perintah berikut untuk mensinkronisasi skema Prisma ke dalam MySQL Anda:
+```bash
+npx prisma db push
+```
+Lalu, *generate* Prisma Client terbaru:
+```bash
+npx prisma generate
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 5. Jalankan Server Development
+```bash
+npm run dev
+```
+Buka [http://localhost:3000](http://localhost:3000) di browser Anda untuk melihat hasilnya!
 
-## Learn More
+## 🔐 Keamanan
+Untuk masuk ke aplikasi, Anda akan dimintai PIN.
+- PIN Default: `123456`
+- Anda dapat mengubah PIN ini kapan saja di halaman **Profil/Pengaturan**.
 
-To learn more about Next.js, take a look at the following resources:
+## 💡 Kontribusi & Lisensi
+Proyek ini masih dalam tahap pengembangan (Active Development). Segala bentuk *feedback*, saran, atau kontribusi kode sangat diapresiasi!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Dibuat dengan ❤️ untuk kemajuan UMKM.*
