@@ -80,4 +80,3 @@ Untuk masuk ke aplikasi, Anda akan dimintai PIN.
 Proyek ini masih dalam tahap pengembangan (Active Development). Segala bentuk *feedback*, saran, atau kontribusi kode sangat diapresiasi!
 
 ---
-*Dibuat dengan ❤️ untuk kemajuan UMKM.*
